@@ -115,7 +115,14 @@ export default defineConfig({
           name: 'app2',
           entry: '//localhost:20002', // 子项目服务
         },
-      ],
+      ].map((app) =>
+        process.env.QIANKUN === 'build'
+          ? {
+              ...app,
+              entry: `/microapps/${app.name}`,
+            }
+          : app,
+      ),
     },
   },
 });

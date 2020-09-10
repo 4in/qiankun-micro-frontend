@@ -2,7 +2,7 @@ const path = require('path');
 const { name } = require('./package');
 
 function resolve(dir) {
-    return path.join(__dirname, dir);
+  return path.join(__dirname, dir);
 }
 
 const port = 20002; // dev port
@@ -15,37 +15,37 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-    outputDir: 'dist',
-    assetsDir: 'static',
-    filenameHashing: true,
-    // tweak internal webpack configuration.
-    // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-    devServer: {
-        // host: '0.0.0.0',
-        hot: true,
-        disableHostCheck: true,
-        port,
-        overlay: {
-            warnings: false,
-            errors: true,
-        },
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-        },
+  outputDir: 'dist',
+  assetsDir: 'static',
+  filenameHashing: true,
+  // tweak internal webpack configuration.
+  // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
+  devServer: {
+    // host: '0.0.0.0',
+    hot: true,
+    disableHostCheck: true,
+    port,
+    overlay: {
+      warnings: false,
+      errors: true,
     },
-    publicPath: `//localhost:${port}`,
-    // 自定义webpack配置
-    configureWebpack: {
-        resolve: {
-            alias: {
-                '@': resolve('src'),
-            },
-        },
-        output: {
-            // 把子应用打包成 umd 库格式
-            library: `${name}-[name]`,
-            libraryTarget: 'umd',
-            jsonpFunction: `webpackJsonp_${name}`,
-        },
+    headers: {
+      'Access-Control-Allow-Origin': '*',
     },
+  },
+  publicPath: process.env.QIANKUN === 'build' ? `/microapps/app2` : `//localhost:${port}`,
+  // 自定义webpack配置
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@': resolve('src'),
+      },
+    },
+    output: {
+      // 把子应用打包成 umd 库格式
+      library: `${name}-[name]`,
+      libraryTarget: 'umd',
+      jsonpFunction: `webpackJsonp_${name}`,
+    },
+  },
 };
